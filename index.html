@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="AeroProjects — Aerofly FS 4 Projekte, Tools, Liveries und Downloads.">
+<title>AeroProjects — Aerofly FS 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#05070b;--card:rgba(13,18,28,.72);--line:rgba(255,255,255,.09);--text:#f6f8fc;--muted:#8d99aa;
+  --blue:#63b3ff;--purple:#8b6cff;--green:#5df39a;--radius:22px;--fast:.2s ease;--slow:.5s cubic-bezier(.2,.8,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at 10% -5%,#2463a62b,transparent 30%),radial-gradient(circle at 90% 0%,#7647b52b,transparent 28%),linear-gradient(transparent 96%,#ffffff03)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{width:min(1160px,92%);margin:auto;position:relative;z-index:1}
+img{max-width:100%;display:block}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}}
+
+/* header */
+header{position:sticky;top:0;z-index:50;background:#05070bd9;backdrop-filter:blur(20px)}
+.nav{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:16px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;flex-shrink:0}
+.brandIcon{width:40px;height:40px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#5cb7ff,#7657ff);box-shadow:0 10px 35px #4f8cff35}
+.navlinks{display:flex;align-items:center;gap:28px;color:#8995a7;font-size:14px}
+.navlinks a{transition:color var(--fast)}
+.navlinks a:hover{color:#fff}
+.discordBtn{display:flex;align-items:center;gap:8px;padding:9px 14px;border-radius:11px;border:1px solid var(--line);background:#ffffff07;font-size:13px;font-weight:700;transition:transform var(--fast),background var(--fast)}
+.discordBtn:hover{transform:translateY(-2px);background:#ffffff0d}
+.navRight{display:flex;align-items:center;gap:14px}
+.navToggle{display:none;width:40px;height:40px;border-radius:10px;border:1px solid var(--line);background:#ffffff07;align-items:center;justify-content:center;flex-shrink:0}
+.navToggle span,.navToggle span:before,.navToggle span:after{content:"";display:block;width:16px;height:2px;background:#fff;position:relative;transition:transform var(--fast),opacity var(--fast)}
+.navToggle span:before{position:absolute;top:-5px}
+.navToggle span:after{position:absolute;top:5px}
+.mobileMenu{display:none;flex-direction:column;gap:2px;border-bottom:1px solid var(--line);background:#05070bf5;overflow:hidden;max-height:0;transition:max-height var(--slow)}
+.mobileMenu.open{max-height:260px}
+.mobileMenu a,.mobileMenu button{padding:16px 5%;border-top:1px solid var(--line);font-size:15px;text-align:left;background:none;border-left:none;border-right:none;border-bottom:none;width:100%}
+
+/* hero */
+.hero{min-height:560px;display:grid;align-items:center;padding:70px 0 50px;position:relative}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:#ffffff05;padding:8px 12px;border-radius:99px;color:#b6c2d2;font-size:12px;font-weight:700;opacity:0;animation:riseIn .7s var(--slow) forwards}
+.live{width:7px;height:7px;background:var(--green);border-radius:50%;box-shadow:0 0 15px var(--green)}
+h1{font-size:clamp(46px,7.5vw,88px);line-height:.96;letter-spacing:-4px;max-width:950px;margin:22px 0;opacity:0;animation:riseIn .8s .12s var(--slow) forwards}
+.grad{background:linear-gradient(100deg,#fff 15%,#67baff 55%,#a57aff);-webkit-background-clip:text;color:transparent}
+.hero p{max-width:680px;color:var(--muted);font-size:18px;line-height:1.75;opacity:0;animation:riseIn .8s .24s var(--slow) forwards}
+.actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;opacity:0;animation:riseIn .8s .36s var(--slow) forwards}
+.btn{padding:13px 18px;border-radius:12px;border:1px solid var(--line);background:#ffffff07;font-size:14px;font-weight:700;transition:transform var(--fast),background var(--fast);display:inline-flex;align-items:center;gap:8px}
+.btn:hover{transform:translateY(-2px);background:#ffffff0d}
+.primary{background:#fff;color:#06090e;border-color:#fff}
+.primary:hover{background:#e9edf3}
+@keyframes riseIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.section{padding:45px 0 90px}
+.sectionTitle{display:flex;align-items:end;justify-content:space-between;margin-bottom:22px;gap:16px;flex-wrap:wrap}
+.sectionTitle h2{font-size:30px;margin:0 0 6px}
+.sectionTitle p{color:var(--muted);margin:0}
+
+/* featured spotlight */
+.spotlight{border:1px solid var(--line);border-radius:26px;overflow:hidden;background:linear-gradient(145deg,#121a29,#0a0e16);display:grid;grid-template-columns:1.1fr .9fr;min-height:280px}
+.spotlightMedia{position:relative;background:linear-gradient(135deg,#1a2b45,#241638);display:grid;place-items:center;overflow:hidden}
+.spotlightMedia img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.spotlightMedia .bigIcon{font-size:96px;filter:drop-shadow(0 10px 30px #0007);position:relative;z-index:1}
+.spotlightBody{padding:34px 36px;display:flex;flex-direction:column;gap:14px}
+.pillRow{display:flex;flex-wrap:wrap;gap:8px}
+.pill{padding:6px 11px;border-radius:8px;border:1px solid #63b3ff20;background:#63b3ff0b;color:#a7d1ff;font-size:11.5px;font-weight:700}
+.pill.muted{border-color:var(--line);background:#ffffff05;color:var(--muted)}
+.spotlightBody h3{font-size:27px;margin:0}
+.spotlightBody p{color:var(--muted);line-height:1.7;margin:0}
+.spotlightActions{display:flex;gap:10px;margin-top:auto;flex-wrap:wrap}
+
+/* controls: search + filters */
+.controls{display:flex;gap:12px;align-items:center;margin-bottom:22px;flex-wrap:wrap}
+.searchBox{flex:1;min-width:220px;position:relative}
+.searchBox input{width:100%;padding:13px 16px 13px 42px;border-radius:12px;border:1px solid var(--line);background:#ffffff07;color:#fff;font-size:14px;font-family:inherit}
+.searchBox input:focus{outline:2px solid var(--blue);outline-offset:1px}
+.searchBox input::placeholder{color:#657186}
+.searchBox svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.6}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:#ffffff05;font-size:13px;font-weight:700;color:var(--muted);transition:background var(--fast),color var(--fast),border-color var(--fast)}
+.chip.active{background:#fff;color:#06090e;border-color:#fff}
+.chip:not(.active):hover{background:#ffffff0d;color:#fff}
+
+/* grid + cards */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;transition:opacity .18s ease}
+.grid.isFiltering{opacity:0}
+.card{position:relative;border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(145deg,#111925b8,#090d14e8);overflow:hidden;transition:transform var(--fast),border-color var(--fast),box-shadow var(--fast);display:flex;flex-direction:column}
+.card:hover{transform:translateY(-7px);border-color:#ffffff20;box-shadow:0 25px 70px #0008}
+.cardMedia{position:relative;aspect-ratio:16/9;background:linear-gradient(135deg,#1a2b45,#241638);display:grid;place-items:center;overflow:hidden}
+.cardMedia img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;transition:transform .5s ease}
+.card:hover .cardMedia img{transform:scale(1.06)}
+.cardMedia .bigIcon{font-size:52px;position:relative;z-index:1}
+.cardMedia .tag{position:absolute;top:12px;left:12px;padding:7px 9px;border-radius:9px;border:1px solid #63b3ff20;background:#0a0e16cc;color:#a7d1ff;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;backdrop-filter:blur(6px)}
+.cardBody{padding:20px 21px 21px;display:flex;flex-direction:column;flex:1}
+.card h3{font-size:20px;margin:0 0 8px}
+.card p{color:var(--muted);font-size:14px;line-height:1.65;margin:0}
+.cardMeta{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.open{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:space-between}
+.open span{color:var(--blue)}
+
+.emptyState{border:1px dashed var(--line);border-radius:var(--radius);padding:50px 30px;text-align:center;color:var(--muted)}
+.emptyState h3{color:#fff;margin:0 0 8px}
+.emptyState button{margin-top:16px}
+
+/* about */
+.aboutGrid{display:grid;grid-template-columns:1.3fr .7fr;gap:17px}
+.panel{border:1px solid var(--line);border-radius:var(--radius);padding:28px;background:#0d121ab8}
+.panel h3{margin-top:0}
+.panel p{color:var(--muted);line-height:1.75}
+.discord{display:flex;align-items:center;gap:14px;padding:16px;border-radius:15px;background:#ffffff05;border:1px solid var(--line);width:100%;text-align:left}
+.discordIcon{font-size:25px}
+.discord b{display:block}
+.discord span{color:var(--muted);font-size:12px}
+
+footer{border-top:1px solid var(--line);padding:27px 0;color:#667386;font-size:12px;display:flex;justify-content:space-between;position:relative;z-index:1;flex-wrap:wrap;gap:10px}
+
+/* detail view */
+#detailView{padding:40px 0 100px}
+.backLink{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:14px;font-weight:700;margin-bottom:24px;transition:color var(--fast)}
+.backLink:hover{color:#fff}
+.detailHead{display:grid;grid-template-columns:1fr;gap:26px}
+.detailHero{aspect-ratio:21/9;border-radius:26px;border:1px solid var(--line);overflow:hidden;position:relative;background:linear-gradient(135deg,#1a2b45,#241638);display:grid;place-items:center}
+.detailHero img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.detailHero .bigIcon{font-size:110px;position:relative;z-index:1}
+.detailInfo h1.detailTitle{font-size:clamp(32px,5vw,50px);letter-spacing:-2px;margin:14px 0 12px}
+.detailInfo p.lead{color:var(--muted);font-size:17px;line-height:1.8;max-width:760px}
+.detailActions{display:flex;gap:12px;margin:22px 0 6px;flex-wrap:wrap}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-top:14px}
+.gallery img{aspect-ratio:4/3;object-fit:cover;border-radius:12px;border:1px solid var(--line);cursor:zoom-in;transition:transform var(--fast)}
+.gallery img:hover{transform:scale(1.03)}
+.detailSection{margin-top:38px}
+.detailSection h4{font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 12px;font-weight:700}
+
+/* lightbox */
+.lightbox{position:fixed;inset:0;background:#000c;backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;z-index:200;padding:5%}
+.lightbox.open{display:flex}
+.lightbox img{max-width:100%;max-height:90vh;border-radius:12px;box-shadow:0 30px 90px #000a}
+.lightboxClose{position:absolute;top:22px;right:5%;width:42px;height:42px;border-radius:50%;background:#ffffff12;border:1px solid var(--line);display:grid;place-items:center;font-size:18px}
+
+/* toast */
+.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,20px);background:#fff;color:#06090e;padding:12px 18px;border-radius:11px;font-size:13px;font-weight:700;opacity:0;transition:opacity var(--fast),transform var(--fast);z-index:300;pointer-events:none}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+[hidden]{display:none !important}
+
+@media(max-width:850px){
+  .grid{grid-template-columns:1fr 1fr}
+  .aboutGrid{grid-template-columns:1fr}
+  .spotlight{grid-template-columns:1fr}
+  .spotlightMedia{min-height:200px}
+}
+@media(max-width:600px){
+  .navlinks{display:none}
+  .navToggle{display:flex}
+  .mobileMenu{display:flex}
+  .hero{min-height:auto;padding:60px 0}
+  .grid{grid-template-columns:1fr}
+  h1{letter-spacing:-2.5px}
+  .section{padding-bottom:60px}
+  footer{display:block}
+  .controls{flex-direction:column;align-items:stretch}
+  .chips{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+  .detailActions{flex-direction:column}
+  .detailActions .btn{justify-content:center}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#/"><span class="brandIcon">✈</span><span>AeroProjects</span></a>
+    <nav class="navlinks">
+      <a href="#/">Projekte</a>
+      <a href="#about">Über</a>
+      <button class="discordBtn" id="discordBtnDesktop" type="button">💬 Discord</button>
+    </nav>
+    <div class="navRight">
+      <button class="navToggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false"><span></span></button>
+    </div>
+  </div>
+  <div class="mobileMenu" id="mobileMenu">
+    <a href="#/">Projekte</a>
+    <a href="#about">Über</a>
+    <button id="discordBtnMobile" type="button">💬 Discord — Kontakt</button>
+  </div>
+</header>
+
+<main>
+  <div id="homeView">
+    <section class="hero"><div class="wrap">
+      <div class="eyebrow"><span class="live"></span> AEROSIM PROJECT HUB</div>
+      <h1>Built for <span class="grad">Aerofly.</span><br>Made by me.</h1>
+      <p>Willkommen bei meiner Sammlung von Aerofly&nbsp;FS&nbsp;4 Projekten — Liveries, Szenerien, Tools und Experimente. Alles an einem Ort.</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">Projekte entdecken ↓</a>
+        <a class="btn" href="#about">Kontakt</a>
+      </div>
+    </div></section>
+
+    <section class="section" id="featuredSection" hidden><div class="wrap">
+      <div class="sectionTitle"><div><h2>Featured Project</h2><p>Mein aktuelles Hauptprojekt.</p></div></div>
+      <div id="featuredSlot"></div>
+    </div></section>
+
+    <section class="section" id="projects"><div class="wrap">
+      <div class="sectionTitle"><div><h2>Alle Projekte</h2><p>Wähle ein Projekt, um seine Seite zu öffnen.</p></div></div>
+
+      <div class="controls">
+        <div class="searchBox">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8d99aa" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="searchInput" placeholder="Projekte durchsuchen…" autocomplete="off">
+        </div>
+        <div class="chips" id="filterChips"></div>
+      </div>
+
+      <div class="grid" id="projectGrid"></div>
+      <div class="emptyState" id="emptyState" hidden>
+        <h3>Keine Projekte gefunden</h3>
+        <p>Versuch einen anderen Suchbegriff oder Filter.</p>
+        <button class="btn" id="resetFilters" type="button">Filter zurücksetzen</button>
+      </div>
+    </div></section>
+
+    <section class="section" id="about"><div class="wrap">
+      <div class="aboutGrid">
+        <div class="panel">
+          <h3>Über AeroProjects</h3>
+          <p>Ein kleines Zuhause für meine Aerofly&nbsp;FS&nbsp;4 Projekte. Neue Liveries, Tools, Szenerien und Experimente kommen dazu, sobald ich etwas Neues baue.</p>
+          <button class="discord" id="discordPanelBtn" type="button">
+            <div class="discordIcon">💬</div>
+            <div><b>Kontakt über Discord</b><span id="discordUsernameText">…</span></div>
+          </button>
+        </div>
+        <div class="panel">
+          <h3>Projekte</h3>
+          <p>Aktuell gelistet</p>
+          <div style="font-size:42px;font-weight:800" id="count">0</div>
+        </div>
+      </div>
+    </div></section>
+  </div>
+
+  <div id="detailView" hidden><div class="wrap" id="detailContent"></div></div>
+</main>
+
+<footer><div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px">
+  <span>© <span id="year"></span> AeroProjects</span>
+  <span>Made by <b>j4l5anxexexe</b></span>
+</div></footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightboxClose" id="lightboxClose" aria-label="Schließen">✕</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="config.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var homeView = document.getElementById("homeView");
+  var detailView = document.getElementById("detailView");
+  var detailContent = document.getElementById("detailContent");
+  var grid = document.getElementById("projectGrid");
+  var emptyState = document.getElementById("emptyState");
+  var searchInput = document.getElementById("searchInput");
+  var filterChips = document.getElementById("filterChips");
+  var featuredSection = document.getElementById("featuredSection");
+  var featuredSlot = document.getElementById("featuredSlot");
+
+  var state = { query: "", category: "Alle" };
+
+  function slugify(str){
+    return String(str).toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "");
+  }
+
+  // ensure every project has a slug even if config.js omits it
+  (projects || []).forEach(function(p){
+    if(!p.slug) p.slug = slugify(p.title);
+  });
+
+  function esc(str){
+    var d = document.createElement("div");
+    d.textContent = str == null ? "" : String(str);
+    return d.innerHTML;
+  }
+
+  function formatDate(iso){
+    if(!iso) return "";
+    var parts = iso.split("-");
+    if(parts.length !== 3) return iso;
+    var d = new Date(Date.UTC(+parts[0], +parts[1]-1, +parts[2]));
+    if(isNaN(d.getTime())) return iso;
+    return d.toLocaleDateString("de-DE", { day:"2-digit", month:"short", year:"numeric", timeZone:"UTC" });
+  }
+
+  function mediaHtml(p, sizeClass, extraHtml){
+    var icon = '<span class="bigIcon">' + esc(p.icon || "✈") + '</span>';
+    var img = p.image ? '<img src="' + esc(p.image) + '" alt="' + esc(p.title) + '" loading="lazy">' : "";
+    return '<div class="' + sizeClass + '">' + img + icon + (extraHtml || "") + '</div>';
+  }
+
+  function metaPills(p){
+    var pills = "";
+    if(p.version) pills += '<span class="pill">v' + esc(p.version) + '</span>';
+    if(p.updated) pills += '<span class="pill muted">Aktualisiert ' + esc(formatDate(p.updated)) + '</span>';
+    return pills;
+  }
+
+  // ---------- home / grid ----------
+
+  function buildChips(){
+    var cats = ["Alle"];
+    projects.forEach(function(p){ if(cats.indexOf(p.category) === -1) cats.push(p.category); });
+    filterChips.innerHTML = cats.map(function(c){
+      return '<button class="chip' + (c === state.category ? ' active' : '') + '" data-cat="' + esc(c) + '" type="button">' + esc(c) + '</button>';
+    }).join("");
+  }
+
+  function matchesQuery(p, q){
+    if(!q) return true;
+    q = q.toLowerCase();
+    return (p.title + " " + p.description + " " + p.category).toLowerCase().indexOf(q) !== -1;
+  }
+
+  function filteredProjects(){
+    return projects.filter(function(p){
+      var catOk = state.category === "Alle" || p.category === state.category;
+      return catOk && matchesQuery(p, state.query);
+    });
+  }
+
+  function renderGrid(){
+    var list = filteredProjects();
+    if(list.length === 0){
+      grid.innerHTML = "";
+      emptyState.hidden = false;
+    } else {
+      emptyState.hidden = true;
+      grid.innerHTML = list.map(function(p){
+        return (
+          '<a class="card" href="#/project/' + esc(p.slug) + '">' +
+            mediaHtml(p, "cardMedia", '<div class="tag">' + esc(p.category) + '</div>') +
+            '<div class="cardBody">' +
+              '<h3>' + esc(p.title) + '</h3>' +
+              '<p>' + esc(p.description) + '</p>' +
+              '<div class="cardMeta">' + metaPills(p) + '</div>' +
+              '<div class="open"><span>Projekt öffnen</span><span>→</span></div>' +
+            '</div>' +
+          '</a>'
+        );
+      }).join("");
+    }
+    document.getElementById("count").textContent = projects.length;
+  }
+
+  function refreshGridAnimated(){
+    grid.classList.add("isFiltering");
+    window.setTimeout(function(){
+      renderGrid();
+      grid.classList.remove("isFiltering");
+    }, 120);
+  }
+
+  function renderFeatured(){
+    var f = projects.find(function(p){ return p.featured; });
+    if(!f){ featuredSection.hidden = true; return; }
+    featuredSection.hidden = false;
+    var downloadBtn = f.download ? '<a class="btn primary" href="' + esc(f.download) + '" target="_blank" rel="noopener noreferrer">Download</a>' : "";
+    featuredSlot.innerHTML =
+      '<div class="spotlight">' +
+        mediaHtml(f, "spotlightMedia") +
+        '<div class="spotlightBody">' +
+          '<div class="pillRow"><span class="pill">' + esc(f.category) + '</span>' + metaPills(f) + '</div>' +
+          '<h3>' + esc(f.title) + '</h3>' +
+          '<p>' + esc(f.description) + '</p>' +
+          '<div class="spotlightActions">' +
+            '<a class="btn" href="#/project/' + esc(f.slug) + '">Details ansehen</a>' +
+            downloadBtn +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  // ---------- detail view ----------
+
+  function renderDetail(slug){
+    var p = projects.find(function(x){ return x.slug === slug; });
+    if(!p){
+      detailContent.innerHTML = '<a class="backLink" href="#/">← Zurück</a><div class="emptyState"><h3>Projekt nicht gefunden</h3><p>Dieses Projekt existiert nicht (mehr).</p></div>';
+      return;
+    }
+    var desc = p.longDescription || p.description;
+    var actions = "";
+    if(p.download) actions += '<a class="btn primary" href="' + esc(p.download) + '" target="_blank" rel="noopener noreferrer">📥 Download</a>';
+    if(p.link) actions += '<a class="btn" href="' + esc(p.link) + '" target="_blank" rel="noopener noreferrer">Projektseite besuchen ↗</a>';
+    if(!actions) actions = '<span class="pill muted">Noch kein Download verfügbar</span>';
+
+    var galleryHtml = "";
+    if(p.gallery && p.gallery.length){
+      galleryHtml =
+        '<div class="detailSection"><h4>Screenshots</h4><div class="gallery">' +
+        p.gallery.map(function(src){
+          return '<img src="' + esc(src) + '" alt="' + esc(p.title) + ' Screenshot" loading="lazy" class="lightboxTrigger">';
+        }).join("") +
+        '</div></div>';
+    }
+
+    detailContent.innerHTML =
+      '<a class="backLink" href="#/">← Zurück zu allen Projekten</a>' +
+      '<div class="detailHead">' +
+        mediaHtml(p, "detailHero") +
+        '<div class="detailInfo">' +
+          '<div class="pillRow"><span class="pill">' + esc(p.category) + '</span>' + metaPills(p) + '</div>' +
+          '<h1 class="detailTitle">' + esc(p.title) + '</h1>' +
+          '<p class="lead">' + esc(desc) + '</p>' +
+          '<div class="detailActions">' + actions + '</div>' +
+        '</div>' +
+      '</div>' +
+      galleryHtml;
+
+    // wire up lightbox triggers
+    detailContent.querySelectorAll(".lightboxTrigger").forEach(function(img){
+      img.addEventListener("click", function(){ openLightbox(img.src, img.alt); });
+    });
+  }
+
+  // ---------- lightbox ----------
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = document.getElementById("lightboxImg");
+  function openLightbox(src, alt){
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || "";
+    lightbox.classList.add("open");
+  }
+  function closeLightbox(){ lightbox.classList.remove("open"); lightboxImg.src = ""; }
+  document.getElementById("lightboxClose").addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", function(e){ if(e.target === lightbox) closeLightbox(); });
+  window.addEventListener("keydown", function(e){ if(e.key === "Escape") closeLightbox(); });
+
+  // ---------- routing ----------
+
+  function swapViews(showDetail){
+    var doSwap = function(){
+      homeView.hidden = showDetail;
+      detailView.hidden = !showDetail;
+      window.scrollTo(0, 0);
+    };
+    if(document.startViewTransition){ document.startViewTransition(doSwap); }
+    else { doSwap(); }
+  }
+
+  function route(){
+    var hash = location.hash || "#/";
+    var m = hash.match(/^#\/project\/(.+)$/);
+    if(m){
+      renderDetail(decodeURIComponent(m[1]));
+      swapViews(true);
+    } else {
+      swapViews(false);
+    }
+  }
+  window.addEventListener("hashchange", route);
+
+  // ---------- search & filters ----------
+
+  searchInput.addEventListener("input", function(){
+    state.query = searchInput.value.trim();
+    refreshGridAnimated();
+  });
+
+  filterChips.addEventListener("click", function(e){
+    var btn = e.target.closest(".chip");
+    if(!btn) return;
+    state.category = btn.getAttribute("data-cat");
+    buildChips();
+    refreshGridAnimated();
+  });
+
+  document.getElementById("resetFilters").addEventListener("click", function(){
+    state.query = ""; state.category = "Alle";
+    searchInput.value = "";
+    buildChips();
+    renderGrid();
+  });
+
+  // ---------- discord ----------
+
+  function showToast(msg){
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    window.clearTimeout(showToast._t);
+    showToast._t = window.setTimeout(function(){ t.classList.remove("show"); }, 2200);
+  }
+
+  function discordAction(){
+    if(siteInfo.discordInvite){
+      window.open(siteInfo.discordInvite, "_blank", "noopener,noreferrer");
+      return;
+    }
+    var name = siteInfo.discordUsername || "";
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(name).then(function(){
+        showToast("Discord-Name kopiert: " + name);
+      }).catch(function(){ showToast("Discord: " + name); });
+    } else {
+      showToast("Discord: " + name);
+    }
+  }
+
+  ["discordBtnDesktop","discordBtnMobile","discordPanelBtn"].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener("click", discordAction);
+  });
+  var unameEl = document.getElementById("discordUsernameText");
+  if(unameEl) unameEl.textContent = siteInfo.discordUsername || "";
+
+  // ---------- mobile nav ----------
+
+  var navToggle = document.getElementById("navToggle");
+  var mobileMenu = document.getElementById("mobileMenu");
+  navToggle.addEventListener("click", function(){
+    var open = mobileMenu.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+  });
+  mobileMenu.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click", function(){ mobileMenu.classList.remove("open"); });
+  });
+
+  // ---------- init ----------
+
+  buildChips();
+  renderGrid();
+  renderFeatured();
+  document.getElementById("year").textContent = new Date().getFullYear();
+  route();
+})();
+</script>
+</body></html>
